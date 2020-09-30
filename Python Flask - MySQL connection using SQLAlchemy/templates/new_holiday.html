@@ -1,0 +1,16 @@
+<html>
+    <head>    
+        <meta charset="UTF-8">
+    </head>
+    <title>New Album - Flask Holiday Database</title>
+    <h2>Add Holiday</h2>
+    {% from "_formhelpers.html" import render_field %}
+    <form method="post">
+        <dl>
+            {{ render_field(form.c_date) }}
+            {{ render_field(form.c_desc) }}
+        </dl>
+        <button type="button" onclick="location.href='/holiday'">  Cancel  </button>        
+        <input type="submit" value="Submit">
+    </form>
+</html>

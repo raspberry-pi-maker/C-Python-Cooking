@@ -1,0 +1,13 @@
+<doctype html>
+    <title>IVR WorkTime Schedule Edit</title>
+    <h2>IVR WorkTime Schedule Edit</h2>
+    
+    {% from "_formhelpers.html" import render_field %}
+    <form method=post>
+        <dl>
+            {{ render_field(form.c_starttime) }}
+            {{ render_field(form.c_endtime) }}
+        </dl>
+        <button type="button" style="WIDTH: 140pt; HEIGHT: 40pt; font-size:16pt" onclick="location.href='/worktime'">  Cancel  </button>        
+        <input type="submit" style="WIDTH: 140pt; HEIGHT: 40pt; font-size:16pt" value="Modify">
+    </form>

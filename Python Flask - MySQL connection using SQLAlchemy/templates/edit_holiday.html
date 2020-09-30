@@ -1,0 +1,13 @@
+<doctype html>
+    <title>IVR Holiday Edit</title>
+    <h2>IVR Holiday Edit</h2>
+    
+    {% from "_formhelpers.html" import render_field %}
+    <form method=post>
+        <dl>
+            {{ render_field(form.c_date) }}
+            {{ render_field(form.c_desc) }}
+        </dl>
+        <button type="button" style="WIDTH: 140pt; HEIGHT: 40pt; font-size:16pt" onclick="location.href='/holiday'">  취소  </button>        
+        <input type="submit" style="WIDTH: 140pt; HEIGHT: 40pt; font-size:16pt" value="수정">
+    </form>

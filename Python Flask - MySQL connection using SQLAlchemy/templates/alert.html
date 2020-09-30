@@ -1,0 +1,10 @@
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	{% for message in messages %}
+	{{ message }}
+	{% endfor %}
+	{% endif %}
+{% endwith %}
+<br><br>
+<button type="button" style="WIDTH: 140pt; HEIGHT: 40pt; font-size:16pt" onclick="location.href='/'">  Main Page  </button>        
+
