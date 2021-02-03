@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+
+            <div class="jumbotron p-5">
+
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+
+                <table class="table table-hover table-dark">
+
+                    <tr>
+
+                        <th>DATE</th>
+                        <th>TIME</th>
+                        <th>ANI</th>
+                        <th>DNIS</th>
+                        <th>콜백요청번호</th>
+                        <th>콜백일자</th>
+                        <th>콜백시간</th>
+                        <th>COMPLETE</th>
+
+                    </tr>
+
+
+                   {% for row in t_callback %}
+                    <tr>
+                        <td>{{row.c_date}}</td>
+                        <td>{{row.c_time}}</td>
+                        <td>{{row.c_ani}}</td>
+                        <td>{{row.c_dnis}}</td>
+                        <td>{{row.c_callback_num}}</td>
+                        <td>{{row.c_callback_date}}</td>
+                        <td>{{row.c_callback_time}}</td>
+                        <td>{{row.c_complete}}</td>
+
+                        <td>
+                            <a href="/update/{{row.c_date}}/{{row.c_time}}/{{row.c_ani}}" class="btn btn-warning btn-xs" onclick="return confirm('콜백처리를 완료하시겠습니까 ?')">처리 완료</a>
+                            <a href="/delete/{{row.c_date}}/{{row.c_time}}/{{row.c_ani}}" class="btn btn-danger btn-xs" onclick="return confirm('콜백 요청 기록을 삭제하시겠습니까 ?')">삭제</a>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
