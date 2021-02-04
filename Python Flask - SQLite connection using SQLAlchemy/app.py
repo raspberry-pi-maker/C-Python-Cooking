@@ -1,7 +1,12 @@
 # app.py
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 import datetime
+
+from flask_wtf import FlaskForm
+from wtforms.fields.html5 import DateField
+from wtforms.validators import DataRequired
+from wtforms import validators, SubmitField
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////usr/local/src/study/flask_sqlite/callback.db'
@@ -9,6 +14,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = "flask rocks!"
 
 db = SQLAlchemy(app)
+
+#DatePicker
+class InfoForm(FlaskForm):
+    startdate = DateField('Start Date', format='%Y-%m-%d', validators=(validators.DataRequired(),))
+    enddate = DateField('End Date', format='%Y-%m-%d', validators=(validators.DataRequired(),))
+    submit = SubmitField('Submit')
 
 #Creating model table for our CRUD database
 class MyCallback(db.Model):
@@ -34,12 +45,20 @@ class MyCallback(db.Model):
 
 #This is the index route where we are going to
 #query on all our employee data
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def Index():
-    all_data = MyCallback.query.all()
- 
-    return render_template("index.html", t_callback = all_data)
-    #return render_template("test.html")
+    form = InfoForm()
+    if form.validate_on_submit():
+        session['startdate'] = str(form.startdate.data)[:4] +  str(form.startdate.data)[5:7] + str(form.startdate.data)[-2:]      #2021-02-02
+        session['enddate'] = str(form.enddate.data)[:4] +  str(form.enddate.data)[5:7] + str(form.enddate.data)[-2:]
+        print(session['startdate'])
+        print(session['enddate'])
+        all_data = db.session.query(MyCallback).filter(MyCallback.c_date <= session['enddate']).filter(MyCallback.c_date >= session['startdate'])
+    else:    
+        all_data = MyCallback.query.all()
+    print('Query Count:%d'%all_data.count())
+    return render_template("index.html", t_callback = all_data, form=form, count = all_data.count() )
+    # return render_template("test.html")
 
 
 #this is our update route where we are going to update our employee
