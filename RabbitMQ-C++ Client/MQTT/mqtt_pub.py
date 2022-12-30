@@ -11,9 +11,6 @@ def on_connect(client, userdata, flags, rc):
     # Start subscribe, with QoS level 0
     mqttc.publish(topic, "my message")
 
-def on_message(client, obj, msg):
-    print("RCV topic[" + msg.topic + "] qos[" + str(msg.qos) + "]  patload[" + str(msg.payload) + "]") 
-
 def on_publish(client, obj, mid):
     print("published: " + str(mid))
 
@@ -24,7 +21,6 @@ def on_log(client, obj, level, string):
 topic = "topicA/topicB"
 mqttc = mqtt.Client()
 # Assign event callbacks
-mqttc.on_message = on_message
 mqttc.on_connect = on_connect
 mqttc.on_publish = on_publish
 

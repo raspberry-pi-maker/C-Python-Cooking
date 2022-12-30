@@ -12,7 +12,7 @@ def on_connect(client, userdata, flags, rc):
     mqttc.subscribe(topic)
 
 def on_message(client, obj, msg):
-    print("RCV topic[" + msg.topic + "] qos[" + str(msg.qos) + "]  patload[" + str(msg.payload) + "]") 
+    print("RCV topic[" + msg.topic + "] qos[" + str(msg.qos) + "]  payload[" + str(msg.payload) + "]") 
 
 def on_subscribe(client, obj, mid, granted_qos):
     print("Subscribed: " + str(mid) + " QOS:" + str(granted_qos))
